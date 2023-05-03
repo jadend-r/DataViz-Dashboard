@@ -1,6 +1,6 @@
 # Data Visualization Web Dashboard
 
-This project is a data visualization web dashboard that allows users to plot data from four different time-series datasets, including temperature, pressure, distilled oxygen, and pH. The dashboard is built using Python Flask, Plotly, Docker, Javascript, and AJAX, and connects to a PostgreSQL database to retrieve real-time data.
+This project is a data visualization web dashboard that allows users to plot mock data from four different time-series datasets, including temperature, pressure, distilled oxygen, and pH. The dashboard is built using Python Flask, Plotly, Docker, Javascript, and AJAX, and connects to a PostgreSQL database to retrieve the data.
 
 ## Features
 
