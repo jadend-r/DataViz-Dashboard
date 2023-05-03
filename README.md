@@ -6,7 +6,7 @@ This project is a data visualization web dashboard that allows users to plot moc
 
 - Real-time data visualization: The web dashboard provides users with real-time visualization of data from the four different time-series datasets, allowing for quick and efficient data analysis.
 - User-friendly interface: The interface is designed to be intuitive and easy to use, even for users without a technical background.
-- Interactive data plotting: The dashboard allows users to interact with the data, including zooming in and out, selecting specific time periods, and downloading the data in various formats.
+- Interactive data plotting: The dashboard allows users to interact with the data, including zooming in and out and selecting specific time periods.
 
 ## Technologies Used
 
