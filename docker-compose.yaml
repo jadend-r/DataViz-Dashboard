@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15.2
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./local.env
+  app:
+    build: .
+    depends_on:
+      - postgres
+    restart: on-failure
+    volumes:
+      - ./:/root/dashboard
+    command: ["run-app"]
+    ports:
+      - "8888:8888"
+    env_file:
+      - ./local.env
+    
+  

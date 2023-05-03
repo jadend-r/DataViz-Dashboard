@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Web Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/style.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+        rel="stylesheet">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+</head>
+
+<body>
+    <!-- Initialize DateTimePicker plugin -->
+    <script>
+        $(document).ready(function () {
+            $('#datetimepicker').datetimepicker({
+                onChangeDateTime: function (dp, $input) {
+                    // Call the updateChart function on date select to fetch data and update the plots
+                    updateChart();
+                }
+            });
+        });
+    </script>
+    <div class="header">
+        <img src="{{url_for('static',filename='images/flask_logo.png')}}" class="header-image">
+        <h1 class="header-title">
+            Web Dashboard
+        </h1>
+        <p class="header-description">
+            Visualizing mock data from PostgreSQL
+        </p>
+    </div>
+    <div class="toolbar">
+        <div class="time-picker-container">
+            <p class="toolbar-item-title">Select Time Window</p>
+            <p class="toolbar-item-label">From</p>
+            <input id="datetimepicker" type="text">
+        </div>
+    </div>
+    <div class="plot-wrapper">
+        <div id="Temperature" class="plot"></div>
+        <div id="pH" class="plot"></div>
+        <div id="Distilled Oxygen" class="plot"></div>
+        <div id="Pressure" class="plot"></div>
+    </div>
+    <script>
+        // Create 4 initial blank plots
+        Plotly.newPlot("Temperature", {}, {});
+        Plotly.newPlot("pH", {}, {});
+        Plotly.newPlot("Distilled Oxygen", {}, {});
+        Plotly.newPlot("Pressure", {}, {});
+
+        /**
+         * Callback function, makes ajax reques to /data endpoint which returns json for all 4 plots
+         * For each series, updates corresponding plot with JSON data
+         */
+        function updateChart() {
+            var date = $('#datetimepicker').val();
+            $.ajax({
+                url: "/data",
+                data: { "from_date": JSON.stringify(date) }, // Pass selecting starting time window; data returned will only be from this time forward
+                success: function (data) {
+                    var plotsData = JSON.parse(data);
+                    for (var series in plotsData) {
+                        var seriesData = plotsData[series];
+                        Plotly.purge(series);
+                        Plotly.plot(series, JSON.parse(seriesData), { staticPlot: true });
+                    }
+                }
+            });
+        }
+        updateChart()
+        setInterval(updateChart, 30000); //Auto update plots every 30 seconds
+    </script>
+</body>
+
+</html>
