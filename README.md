@@ -25,4 +25,4 @@ To use the data visualization web dashboard, follow these steps:
 2. Install Docker and Docker Compose.
 3. Start the Docker container using `docker-compose up`.
 
-![dashboard](https://raw.githubusercontent.com/jadend-r/DataViz-Dashboard/master/app/static/images/WebDashboard.png)
+![dashboard](https://raw.githubusercontent.com/jadend-r/DataViz-Dashboard/master/app/static/images/WebDashboard.PNG)
